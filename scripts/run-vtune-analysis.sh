@@ -19,3 +19,5 @@ for inputFile in $regressionTestDir/*.i; do
     vtune -report summary -r "$resultsDir/$testName" -format=html > "${testName}_${analysisType}_sum>
     tar -cvf "${testName}_${analysisType}_results".tar $testName 
 done
+
+
