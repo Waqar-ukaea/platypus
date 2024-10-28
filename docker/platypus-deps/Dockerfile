@@ -174,3 +174,5 @@ RUN METHOD=opt make -j$compile_cores
 
 WORKDIR /$WORKDIR/moose/test
 RUN METHOD=opt make -j$compile_cores
+
+# Setup and Install Intel VTune
