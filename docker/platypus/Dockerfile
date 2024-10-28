@@ -46,7 +46,7 @@ RUN make test linkcoverage=$coverage
 
 # Run Intel VTune static code analysis on regression tests
 WORKDIR /$WORKDIR/intel/oneapi
-RUN setvars.sh
+RUN /opt/intel/oneapi/setvars.sh
 WORKDIR /$WORKDIR/platypus
 RUN mkdir -p /opt/platypus/vtune-results
 WORKDIR /$WORKDIR/platypus/scripts
