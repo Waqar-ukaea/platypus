@@ -1,16 +1,22 @@
 #!/bin/bash
 
-# mkdir -p /opt/platypus/vtune-results
-# results_dir=/opt/platypus/vtune-results
-workdir=/home/waqar/platypus/test/tests/kernels
-cd $work || exit 1
+mkdir -p /opt/platypus/vtune-results
+resultsDir=/opt/platypus/vtune-results
+workdir=/opt/platypus/test/tests/kernels
+analysisType="hotspots"
+
+cd $workdir || exit 1
 
 for inputFile in $workdir/*.i; do
-    [ -e "$inputFile" ] || echo "No input files avaialble in regression testsuite. Check Platypus build."
+    [ -e "$inputFile" ] || echo "No input files avaialble in regression testsuite. Check Platypus bu>
     testName="$(basename "$inputFile" .${inputFile##*.})"
-    echo $testName
-    #vtune -collect hotspots -strategy=:trace:trace --app-working-dir= -result-dir="$r" /opt/platypus/bin/platypus -i $inputFile
-    #vtune -report summary -format=html > "$testName_hotspots_summary.html"
-    #tar -cvf testName_results.tar testName 
+    
+    echo "------------------------------------------------------------------"
+    echo "Running Intel VTune $analysisType on $testName regression test" 
+    echo "------------------------------------------------------------------"
 
+    vtune -collect hotspots -strategy=:trace:trace -result-dir="$resultsDir/$testName" /opt/platypus>
+    cd $resultsDir
+    vtune -report summary -r "$resultsDir/$testName" -format=html > "${testName}_${analysisType}_sum>
+    tar -cvf "${testName}_${analysisType}_results".tar $testName 
 done
