@@ -57,7 +57,7 @@ RUN apt-get update && apt-get upgrade -y && \
 
 # Run Intel VTune static code analysis on regression tests
 WORKDIR /$WORKDIR/intel/oneapi
-RUN . /opt/intel/oneapi/setvars.sh
+RUN ./setvars.sh
 WORKDIR /$WORKDIR/platypus
 RUN mkdir -p /opt/platypus/vtune-results
 WORKDIR /$WORKDIR/platypus/scripts
