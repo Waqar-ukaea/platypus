@@ -31,11 +31,26 @@ jobs:
                           --build-arg build_git_repo="${PRREPOSITORY:-$GITHUB_REPOSITORY}" \
                           --build-arg coverage=true \
                           docker/platypus
-      - name: UploadCoverage
+      # - name: UploadCoverage
+      #   run: |
+      #     ci_env=$(bash <(curl -s https://codecov.io/env))
+      #     # shellcheck disable=SC2086
+      #     docker run $ci_env -e CI=true ci-platypus-ubuntu:latest \
+      #            bash /opt/platypus/scripts/upload-coverage.sh
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      # Create Docker container and copy VTune results off container          
+      - name: Start Docker Container
         run: |
-          ci_env=$(bash <(curl -s https://codecov.io/env))
-          # shellcheck disable=SC2086
-          docker run $ci_env -e CI=true ci-platypus-ubuntu:latest \
-                 bash /opt/platypus/scripts/upload-coverage.sh
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          docker create --name vtune-container -td ci-platypus-ubuntu \ 
+          docker cp vtune-container:/opt/platypus/vtune-results/summaries.tar \
+          docker rm vtune-container
+      
+      # Upload VTune results artifacts    
+      - name: Upload VTune results summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: Regression Tests results summaries
+          path: /summaries
+          if-no-files-found: error
