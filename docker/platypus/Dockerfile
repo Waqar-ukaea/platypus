@@ -44,6 +44,17 @@ RUN make -j$compile_cores coverage=$coverage
 WORKDIR /$WORKDIR/platypus/unit
 RUN make test linkcoverage=$coverage
 
+# Setup and Install Intel VTune (can be moved to deps image)
+RUN --security=insecure apt-get update && apt-get upgrade -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    curl ca-certificates gpg-agent software-properties-common && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN --security=insecurecurl -fsSL https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB | gpg --dearmor | tee /usr/share/keyrings/intel-oneapi-archive-keyring.gpg
+RUN --security=insecure echo "deb [signed-by=/usr/share/keyrings/intel-oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main " > /etc/apt/sources.list.d/oneAPI.list
+
+RUN --security=insecure apt-get update && apt-get upgrade -y && \
+
 # Run Intel VTune static code analysis on regression tests
 WORKDIR /$WORKDIR/intel/oneapi
 RUN . /opt/intel/oneapi/setvars.sh
