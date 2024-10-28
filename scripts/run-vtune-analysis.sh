@@ -1,13 +1,12 @@
 #!/bin/bash
 
-mkdir -p /opt/platypus/vtune-results
 resultsDir=/opt/platypus/vtune-results
 workdir=/opt/platypus/test/tests/kernels
 analysisType="hotspots"
 
-cd $workdir || exit 1
+cd $regressionTestDir || exit 1
 
-for inputFile in $workdir/*.i; do
+for inputFile in $regressionTestDir/*.i; do
     [ -e "$inputFile" ] || echo "No input files avaialble in regression testsuite. Check Platypus bu>
     testName="$(basename "$inputFile" .${inputFile##*.})"
     

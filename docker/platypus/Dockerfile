@@ -43,3 +43,11 @@ RUN make -j$compile_cores coverage=$coverage
 # Test Platypus unit tests
 WORKDIR /$WORKDIR/platypus/unit
 RUN make test linkcoverage=$coverage
+
+# Run Intel VTune static code analysis on regression tests
+WORKDIR /$WORKDIR/intel/oneapi
+RUN setvars.sh
+WORKDIR /$WORKDIR/platypus
+RUN mkdir -p /opt/platypus/vtune-results
+WORKDIR /$WORKDIR/platypus/scripts
+RUN run-vtune-analysis.sh 
