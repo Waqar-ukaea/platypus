@@ -52,5 +52,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Regression Tests results summaries
-          path: /opt/summaries
+          path: /opt/summaries.tar
           if-no-files-found: error
