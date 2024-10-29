@@ -2,7 +2,7 @@
   type = MFEMMesh
   file = gold/mug.e
   dim = 3
-  uniform_refine=3
+  uniform_refine=2
 []
 
 [Problem]
