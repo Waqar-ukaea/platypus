@@ -43,7 +43,7 @@ jobs:
       # Create Docker container and copy VTune results off container          
       - name: Start Docker Container
         run: |
-          docker create --name vtune-container -td ci-platypus-ubuntu \ 
+          docker create --name vtune-container -t ci-platypus-ubuntu \ 
           docker cp vtune-container:/opt/platypus/vtune-results/summaries.tar \
           docker rm vtune-container
       
