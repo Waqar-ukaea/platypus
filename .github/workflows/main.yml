@@ -44,7 +44,7 @@ jobs:
       - name: Start Docker Container
         run: |
           docker create --name vtune-container -t ci-platypus-ubuntu  
-          docker cp vtune-container:/opt/platypus/vtune-results/summaries.tar /opt/summaries.tar 
+          docker cp vtune-container:/opt/platypus/vtune-results/regression_test_hotspots_summaries.tar /opt/summaries.tar 
           docker rm vtune-container
       
       # Upload VTune results artifacts    
