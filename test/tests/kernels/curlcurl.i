@@ -5,6 +5,7 @@
   type = MFEMMesh
   file = gold/small_fichera.mesh
   dim = 3
+  uniform_refine=3
 []
 
 [Problem]
