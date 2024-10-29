@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source VTune environment in script to enable VTune command in new shell created with script
+. /opt/intel/oneapi/setvars.sh
+
 mkdir -p /opt/platypus/vtune-results
 resultsDir=/opt/platypus/vtune-results
 regressionTestDir=/opt/platypus/test/tests/kernels
