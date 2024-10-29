@@ -44,7 +44,7 @@ jobs:
       - name: Start Docker Container
         run: |
           docker create --name vtune-container -t ci-platypus-ubuntu \ 
-          docker cp vtune-container:/opt/platypus/vtune-results/summaries.tar \
+          docker cp vtune-container:/opt/platypus/vtune-results/summaries.tar /opt/summaries.tar \
           docker rm vtune-container
       
       # Upload VTune results artifacts    
@@ -52,5 +52,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Regression Tests results summaries
-          path: /summaries
+          path: /opt/summaries
           if-no-files-found: error
