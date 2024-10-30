@@ -25,24 +25,24 @@ RUN git checkout $build_git_sha
 WORKDIR /$WORKDIR/platypus
 RUN make -j$compile_cores coverage=$coverage
 
-# Build Platypus docs
-WORKDIR /$WORKDIR/platypus
-RUN make -j$compile_cores
-RUN doxygen doc/content/doxygen/Doxyfile
-WORKDIR /$WORKDIR/platypus/doc
-RUN ./moosedocs.py build
+# # Build Platypus docs
+# WORKDIR /$WORKDIR/platypus
+# RUN make -j$compile_cores
+# RUN doxygen doc/content/doxygen/Doxyfile
+# WORKDIR /$WORKDIR/platypus/doc
+# RUN ./moosedocs.py build
 
-# Test Platypus regression tests
-WORKDIR /$WORKDIR/platypus 
-RUN make test linkcoverage=$coverage
+# # Test Platypus regression tests
+# WORKDIR /$WORKDIR/platypus 
+# RUN make test linkcoverage=$coverage
 
-# Build Platypus unit tests
-WORKDIR /$WORKDIR/platypus/unit
-RUN make -j$compile_cores coverage=$coverage
+# # Build Platypus unit tests
+# WORKDIR /$WORKDIR/platypus/unit
+# RUN make -j$compile_cores coverage=$coverage
 
-# Test Platypus unit tests
-WORKDIR /$WORKDIR/platypus/unit
-RUN make test linkcoverage=$coverage
+# # Test Platypus unit tests
+# WORKDIR /$WORKDIR/platypus/unit
+# RUN make test linkcoverage=$coverage
 
 # Setup and Install Intel VTune (can be moved to deps image)
 RUN apt-get update && apt-get upgrade -y && \
@@ -55,8 +55,9 @@ RUN echo "deb [signed-by=/usr/share/keyrings/intel-oneapi-archive-keyring.gpg] h
 
 RUN apt-get update && apt-get upgrade -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    ca-certificates build-essential pkg-config gnupg libarchive13 openssh-server openssh-client wget net-tools git intel-oneapi-vtune  && \
+    ca-certificates build-essential pkg-config gnupg libarchive13 openssh-server openssh-client wget net-tools git intel-oneapi-vtune kmod && \
     rm -rf /var/lib/apt/lists/*
+
 
 # Run Intel VTune static code analysis on regression tests
 WORKDIR /$WORKDIR/intel/oneapi

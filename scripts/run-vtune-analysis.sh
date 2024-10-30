@@ -8,6 +8,7 @@ resultsDir=/opt/platypus/vtune-results
 regressionTestDir=/opt/platypus/test/tests/kernels
 analysisType="hotspots"
 
+
 cd $regressionTestDir || exit 1
 shopt -s nullglob
 for inputFile in $regressionTestDir/*.i; do
