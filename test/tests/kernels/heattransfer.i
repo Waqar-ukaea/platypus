@@ -2,7 +2,6 @@
   type = MFEMMesh
   file = gold/mug.e
   dim = 3
-  uniform_refine=2
 []
 
 [Problem]
@@ -98,7 +97,7 @@
   device = cpu
   dt = 2.0
   start_time = 0.0
-  end_time = 6.0
+  end_time = 60.0
 []
 
 [Outputs]
