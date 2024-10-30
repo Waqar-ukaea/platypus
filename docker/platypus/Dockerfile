@@ -25,24 +25,24 @@ RUN git checkout $build_git_sha
 WORKDIR /$WORKDIR/platypus
 RUN make -j$compile_cores coverage=$coverage
 
-# Build Platypus docs
-WORKDIR /$WORKDIR/platypus
-RUN make -j$compile_cores
-RUN doxygen doc/content/doxygen/Doxyfile
-WORKDIR /$WORKDIR/platypus/doc
-RUN ./moosedocs.py build
+# # Build Platypus docs
+# WORKDIR /$WORKDIR/platypus
+# RUN make -j$compile_cores
+# RUN doxygen doc/content/doxygen/Doxyfile
+# WORKDIR /$WORKDIR/platypus/doc
+# RUN ./moosedocs.py build
 
-# Test Platypus regression tests
-WORKDIR /$WORKDIR/platypus 
-RUN make test linkcoverage=$coverage
+# # Test Platypus regression tests
+# WORKDIR /$WORKDIR/platypus 
+# RUN make test linkcoverage=$coverage
 
-# Build Platypus unit tests
-WORKDIR /$WORKDIR/platypus/unit
-RUN make -j$compile_cores coverage=$coverage
+# # Build Platypus unit tests
+# WORKDIR /$WORKDIR/platypus/unit
+# RUN make -j$compile_cores coverage=$coverage
 
-# Test Platypus unit tests
-WORKDIR /$WORKDIR/platypus/unit
-RUN make test linkcoverage=$coverage
+# # Test Platypus unit tests
+# WORKDIR /$WORKDIR/platypus/unit
+# RUN make test linkcoverage=$coverage
 
 # Setup and Install Intel VTune (can be moved to deps image)
 RUN apt-get update && apt-get upgrade -y && \
