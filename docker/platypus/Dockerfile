@@ -55,8 +55,9 @@ RUN echo "deb [signed-by=/usr/share/keyrings/intel-oneapi-archive-keyring.gpg] h
 
 RUN apt-get update && apt-get upgrade -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    ca-certificates build-essential pkg-config gnupg libarchive13 openssh-server openssh-client wget net-tools git intel-oneapi-vtune  && \
+    ca-certificates build-essential pkg-config gnupg libarchive13 openssh-server openssh-client wget net-tools git intel-oneapi-vtune kmod && \
     rm -rf /var/lib/apt/lists/*
+
 
 # Run Intel VTune static code analysis on regression tests
 WORKDIR /$WORKDIR/intel/oneapi
