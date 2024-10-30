@@ -8,7 +8,8 @@ resultsDir=/opt/platypus/vtune-results
 regressionTestDir=/opt/platypus/test/tests/kernels
 analysisType="hotspots"
 
-. /opt/intel/oneapi/vtune/latest/bin64/vtune-self-checker.sh
+cd /opt/intel/oneapi/vtune/latest/bin64/
+./vtune-self-checker.sh
 
 # cd $regressionTestDir || exit 1
 # shopt -s nullglob
