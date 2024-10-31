@@ -50,8 +50,8 @@ jobs:
           tar -xf /opt/results_summaries/results_summaries.tar
           rm results_summaries.tar
 
-          mkdir -p /opt/full_results
-          cd /opt/full_results
+          mkdir -p /opt/results_full
+          cd /opt/results_full
           docker cp vtune-container:/opt/platypus/vtune-results/regression_test_hotspots_full.tar /opt/results_full/results_full.tar
           tar -xf /opt/results_full/results_full.tar
           rm results_full.tar
