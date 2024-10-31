@@ -19,9 +19,9 @@ for inputFile in $regressionTestDir/*.i; do
     echo "------------------------------------------------------------------"
 
     cd $resultsDir
-    vtune -collect hotspots -strategy=:trace:trace -result-dir="$resultsDir/$testName" /opt/platypus/platypus-opt -i $inputFile
+    vtune -collect "$analysisType" -strategy=:trace:trace -result-dir="$resultsDir/$testName" /opt/platypus/platypus-opt -i $inputFile
     vtune -report summary -r "$resultsDir/$testName" -format=html > "${testName}_${analysisType}_summary.html"
     tar -cvf "${testName}_${analysisType}_results".tar $testName 
 done
-
-tar -cvf "regression_test_${analysisType}_summaries.tar" *.html 
+tar -cvf "regression_test_${analysisType}_full.tar *.tar" # tar full results into compressed file for artifact upload
+tar -cvf "regression_test_${analysisType}_summaries.tar" *.html # tar results summaries into compressed file for artifact upload

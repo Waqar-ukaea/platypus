@@ -44,7 +44,18 @@ jobs:
       - name: Start Docker Container
         run: |
           docker create --name vtune-container -t ci-platypus-ubuntu  
-          docker cp vtune-container:/opt/platypus/vtune-results/regression_test_hotspots_summaries.tar /opt/summaries.tar 
+          mkdir -p /opt/results_summaries
+          cd /opt/results_summaries
+          docker cp vtune-container:/opt/platypus/vtune-results/regression_test_hotspots_summaries.tar /opt/results_summaries/results_summaries.tar 
+          tar -xf /opt/results_summaries/results_summaries.tar
+          rm results_summaries.tar
+
+          mkdir -p /opt/full_results
+          cd /opt/full_results
+          docker cp vtune-container:/opt/platypus/vtune-results/regression_test_hotspots_full.tar /opt/results_full/results_full.tar
+          tar -xf /opt/results_full/results_full.tar
+          rm results_full.tar
+          
           docker rm vtune-container
       
       # Upload VTune results artifacts    
@@ -52,5 +63,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Regression Tests results summaries
-          path: /opt/summaries.tar
+          path: /opt/results_summaries/
           if-no-files-found: error
+      - name: Upload VTune full results
+        uses: actions/upload-artifact@v4
+        with:
+            name: Regression Tests full results
+            path: /opt/results_full/
+            if-no-files-found: error
